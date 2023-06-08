@@ -1,0 +1,38 @@
+﻿@model Course
+@{
+    Layout = "_ProductLayout";
+    ViewData["Title"] = "Edit";
+    SelectList deptList = new SelectList(ViewBag.deptList, "Id", "Name");
+}
+
+<h1 class="text-center text-warning">Edit</h1>
+<form method="post">
+    <div>
+        <label asp-for="Name" class="fw-bold"></label>
+        <input asp-for="Name" class="form-control"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Degree" class="fw-bold"></label>
+        <input asp-for="Degree" class="form-control" />
+        <span asp-validation-for="Degree" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="MinDegree" class="fw-bold"></label>
+        <input asp-for="MinDegree" class="form-control" />
+        <span asp-validation-for="MinDegree" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Dept_Id" class="fw-bold">Department</label>
+        <select asp-for="Dept_Id" asp-items="deptList" class="form-control">
+        </select>
+        <span asp-validation-for="Dept_Id" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Edit" class="btn btn-primary mt-4"/>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib//jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

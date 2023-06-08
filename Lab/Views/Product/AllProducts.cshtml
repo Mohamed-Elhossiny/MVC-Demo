@@ -1,0 +1,24 @@
+﻿
+@{
+	Layout = "_ProductLayout";
+}
+<h1 class="text-center">OUR PRODUCTS</h1>
+<div class="container">
+	<div class="row">
+		@foreach (Product item in Model)
+		{
+			<div class="card mt-3 ms-2 col-md-3" style="width: 18rem;">
+				<img src="/images/@item.Image" class="card-img-top" alt="..." style="height:250px;">
+				<div class="card-body">
+					<p class="card-text fw-bold text-danger">ID: @item.ID</p>
+					<p class="card-text fw-bold text-danger"  >Name: @item.Name</p>
+					<p class="card-text fw-bold text-danger" >Price: @item.Price</p>
+					<p class="card-text fw-bold text-danger" >Desc: @item.Description</p>
+					<a class="btn btn-outline-primary" href="/product/details/@item.ID">View</a>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+

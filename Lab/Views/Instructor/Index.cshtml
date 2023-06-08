@@ -1,0 +1,39 @@
+﻿@model InstDeptCourseViewModel
+@{
+    Layout = "_ProductLayout";
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">OUR INSTRUCTORS</h1>
+<div class="mb-3">
+    <form method="post" action="/Instructor/Search">
+        <label>Search For Instructor</label>
+        <input type="text" name="Name" class="form-control" placeholder="Enter Instructor Name"/>
+        <input type="submit" value="Search" class="btn btn-outline-primary mt-2"/>
+    </form>
+</div>
+<div>
+    <a href="/instructor/add" class="btn btn-primary mb-3">Add New Instructor</a>
+</div>
+<table class="table table-hover table-bordered table-striped">
+    <tr class="table-dark">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Image</th>
+        <th colspan="2" class="text-center">Action Status</th>
+    </tr>
+    @foreach (var item in Model.InstList)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Address</td>
+            <td><img src="/images/@item.Image" style="height:100px"/></td>
+            <td><a class="btn btn-primary" href="/instructor/details/@item.Id">View</a></td>
+            <td><a class="btn btn-warning" href="/instructor/Edit/@item.Id">Edit</a></td>
+        </tr>
+    }
+</table>
+
+

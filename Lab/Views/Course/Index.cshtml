@@ -1,0 +1,32 @@
+﻿@model CourseDepartmentInstrucViewModel
+@{
+    Layout = "_ProductLayout";
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">COURSES</h1>
+<div>
+    <a href="/course/add" class="btn btn-primary mb-3">Add New Course</a>
+</div>
+<table class="table table-hover table-bordered">
+    <tr class="table-dark">
+        <th>C_ID</th>
+        <th>Course Name</th>
+        <th>Course Degree</th>
+        <th>Course MinDegree</th>
+        <th>Department</th>
+        <th colspan="2" class="text-center">Action Status</th>
+    </tr>
+    @foreach (var item in Model.C_List)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Degree</td>
+            <td>@item.MinDegree</td>
+            <td>@item.Dept.Name</td>
+            <td class="text-center"><a class="btn btn-primary" asp-action="Edit" asp-controller="course" asp-route-id="@item.Id">Edit</a></td>
+            <td class="text-center"><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+        </tr>
+    }
+</table>

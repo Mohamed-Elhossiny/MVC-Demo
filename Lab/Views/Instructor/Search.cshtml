@@ -1,0 +1,25 @@
+﻿@model InstDeptCourseViewModel
+@{
+	ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+<table class="table table-hover table-striped">
+	<tr class="table-info">
+		<th>ID</th>
+		<th>Name</th>
+		<th>Salary</th>
+		<th>Deptartment</th>
+		<th>Course</th>
+		<th>Image</th>
+	</tr>
+	<tr>
+		<td>@Model.InsID</td>
+		<td>@Model.InsName</td>
+		<td>@Model.InsSalary</td>
+		<td>@Model.DeptName</td>
+		<td>@Model.CrsName</td>
+		<td><img src="/images/@Model.ImageSrc" style="height:100px"/></td>
+	</tr>
+</table>
+<a class="btn btn-primary" href="/instructor/index">Back</a>

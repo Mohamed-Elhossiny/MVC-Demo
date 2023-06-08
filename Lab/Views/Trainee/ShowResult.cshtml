@@ -1,0 +1,18 @@
+﻿@model TraineeCourseViewModel;
+@{
+    ViewData["Title"] = "ShowResult";
+}
+
+<h1>ShowResult</h1>
+<table class="table table-hover table-bordered table-striped">
+    <tr>
+        <th>Trainee Name</th>
+        <th>Course</th>
+        <th>Degree</th>
+    </tr>
+    <tr style="background:@Model.Color;color:white">
+        <td>@Model.T_Name</td>
+        <td>@Model.C_Name</td>
+        <td>@Model.Degree</td>
+    </tr>
+</table>
