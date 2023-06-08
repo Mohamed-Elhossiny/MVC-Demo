@@ -7,94 +7,10 @@
 }
 
 <h1 class="text-center fw-bolder">Edit</h1>
-<div>
-	@*<form method="post">
-	<div>
-	<label class="fw-bold">Instructor Name</label>
-	<input class="form-control" name="Name" value="@Model.Name" type="text" />
-	</div>
-	<div>
-	<label class="fw-bold">Instructor Image</label>
-	<input class="form-control" name="Image" value="@Model.Image" type="text" />
-	</div>
-	<div>
-	<label class="fw-bold">Instructor Salary</label>
-	<input class="form-control" name="Salary" value="@Model.Salary" type="number" />
-	</div>
-	<div>
-	<label class="fw-bold">
-	Instructor Address</labe>
-	<input class="form-control" name="Address" value="@Model.Address" type="text" />
-	</div>
-	<div>
-	<label class="fw-bold">Department</label>
-	<select name="Dept_Id" class="form-control">
-	@foreach (Department item in ViewBag.deptList)
-	{
-	if (Model.Dept_Id == item.Id)
-	{
-	<option value="@item.Id" selected>@item.Name</option>
-	}
-	else
-	{
-	<option value="@item.Id">@item.Name</option>
-	}
-	}
-	</select>
-	</div>
-	<div>
-	<label class="fw-bold">Course</label>
-	<select name="Course_Id" class="form-control">
-	@foreach (Course item in ViewBag.courseList)
-	{
-	if (Model.Course_Id == item.Id)
-	{
-	<option value="@item.Id" selected>@item.Name</option>
-	}
-	else
-	{
-	<option value="@item.Id">@item.Name</option>
-	}
-	}
-	</select>
-	</div>
-	<input type="submit" value="Save" class="btn btn-primary mt-4" />
-	</form>*@
-
-</div>
 
 <form method="post">
 	@*<div asp-validation-summary="All" class="text-danger"></div>*@
-	<div>
-		<label asp-for="Name" class="fw-bold"></label>
-		<input asp-for="Name" class="form-control" />
-		<span asp-validation-for="Name" class="text-danger"></span>
-	</div>
-	<div>
-		<label asp-for="Image" class="fw-bold"></label>
-		<input asp-for="Image" class="form-control" />
-		<span asp-validation-for="Image" class="text-danger"></span>
-	</div>
-	<div>
-		<label asp-for="Salary" class="fw-bold"></label>
-		<input asp-for="Salary" class="form-control" />
-		<span asp-validation-for="Salary" class="text-danger"></span>
-	</div>
-	<div>
-		<label asp-for="Address" class="fw-bold"></label>
-		<input asp-for="Address" class="form-control" />
-		<span asp-validation-for="Address" class="text-danger"></span>
-	</div>
-	<div>
-		<label asp-for="Dept_Id" class="fw-bold">Department</label>
-		<select class="form-control" asp-for="Dept_Id" asp-items="deptList"></select>
-		<span asp-validation-for="Dept_Id" class="text-danger"></span>
-	</div>
-	<div>
-		<label asp-for="Course_Id" class="fw-bold">Course</label>
-		<select class="form-control" asp-for="Course_Id" asp-items="courseList"></select>
-		<span asp-validation-for="Course_Id" class="text-danger"></span>
-	</div>
+	<partial name="_FormPartialView"></partial>
 	<input type="submit" value="Save" class="btn btn-primary mt-4" />
 </form>
 

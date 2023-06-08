@@ -1,41 +1,66 @@
 ﻿@model Instructor
 @{
-    ViewData["Title"] = "Add";
+	ViewData["Title"] = "Add";
+	SelectList deptList = new SelectList(ViewBag.deptList, "Id", "Name");
+	SelectList courseList = new SelectList(ViewBag.courseList, "Id", "Name");
 }
 
 <h1 class="text-success text-center">Add Instructor</h1>
 <form method="post" action="/instructor/save">
-    <div>
-        <label>Name</label>
-        <input class="form-control" type="text" value="@Model?.Name" name="Name"/>
-    </div>
-    <div>
-        <label>Image</label>
-        <input class="form-control" type="text" value="@Model?.Image" name="Image" />
-    </div>
-    <div>
-        <label>Salary</label>
-        <input class="form-control" type="number" value="@Model?.Salary" name="Salary" />
-    </div>
-    <div>
-        <label>Address</label>
-        <input class="form-control" type="text" value="@Model?.Address" name="Address" />
-    </div>
-    <div class="mt-3">
-        <select name="Dept_Id" class="form-control">
-            @foreach (Department dept in ViewBag.DeptList)
-            {
-                <option value="@dept.Id">@dept.Name</option>
-            }
-        </select>
-    </div>
-    <div class="mt-3 mb-3">
-        <select name="Course_Id" class="form-control">
-            @foreach (Course course in ViewBag.CourseList)
-            {
-                <option value="@course.Id">@course.Name</option>
-            }
-        </select>
-    </div>
-    <input type="submit" value="Add" class="btn btn-primary"/>
+	<div>
+		<label asp-for="Name" class="fw-bold"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="Image" class="fw-bold"></label>
+		<input asp-for="Image" class="form-control" />
+		<span asp-validation-for="Image" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="Salary" class="fw-bold"></label>
+		<input asp-for="Salary" class="form-control" />
+		<span asp-validation-for="Salary" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="Address" class="fw-bold"></label>
+		<input asp-for="Address" class="form-control" />
+		<span asp-validation-for="Address" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="Dept_Id" class="fw-bold">Department</label>
+		<select class="form-control" asp-for="Dept_Id" asp-items="deptList" onchange="GetCourses()">
+			<option value="0">Select Department</option>
+		</select>
+		<span asp-validation-for="Dept_Id" class="text-danger"></span>
+	</div>
+	<div>
+		<label asp-for="Course_Id" class="fw-bold">Course</label>
+		<select class="form-control" name="Course_Id" id="CourseID"></select>
+		@*		<select class="form-control" asp-for="Course_Id" asp-items="courseList"></select>
+		<span asp-validation-for="Course_Id" class="text-danger"></span>*@
+	</div>
+	<input type="submit" value="Add" class="btn btn-primary mt-4" />
 </form>
+@section Scripts{
+	<partial name="_ValidationScriptsPartial"/>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script>
+		function GetCourses() {
+			var deptIdfromSelect = document.getElementById("Dept_Id").value;
+			console.log(deptIdfromSelect);
+			$.ajax({
+				url: "/Instructor/GetCourseByDept?deptId=" + deptIdfromSelect,
+				success: function (result) {
+					console.log(result);
+					document.getElementById("CourseID").innerHTML="";
+					for(let i of result){
+						document.getElementById("CourseID").innerHTML+=
+						"<option value='"+i.id+"'>"+i.name+"</option>"
+					}
+				}
+			})
+		};
+								
+	</script>
+}

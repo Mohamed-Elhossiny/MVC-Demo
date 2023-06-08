@@ -1,0 +1,35 @@
+﻿@model Instructor
+@{
+	SelectList deptList = new SelectList(ViewBag.deptList, "Id", "Name");
+	SelectList courseList = new SelectList(ViewBag.courseList, "Id", "Name");
+}
+<div>
+	<label asp-for="Name" class="fw-bold"></label>
+	<input asp-for="Name" class="form-control" />
+	<span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div>
+	<label asp-for="Image" class="fw-bold"></label>
+	<input asp-for="Image" class="form-control" />
+	<span asp-validation-for="Image" class="text-danger"></span>
+</div>
+<div>
+	<label asp-for="Salary" class="fw-bold"></label>
+	<input asp-for="Salary" class="form-control" />
+	<span asp-validation-for="Salary" class="text-danger"></span>
+</div>
+<div>
+	<label asp-for="Address" class="fw-bold"></label>
+	<input asp-for="Address" class="form-control" />
+	<span asp-validation-for="Address" class="text-danger"></span>
+</div>
+<div>
+	<label asp-for="Dept_Id" class="fw-bold">Department</label>
+	<select class="form-control" asp-for="Dept_Id" asp-items="deptList"></select>
+	<span asp-validation-for="Dept_Id" class="text-danger"></span>
+</div>
+<div>
+	<label asp-for="Course_Id" class="fw-bold">Course</label>
+	<select class="form-control" asp-for="Course_Id" asp-items="courseList"></select>
+	<span asp-validation-for="Course_Id" class="text-danger"></span>
+</div>

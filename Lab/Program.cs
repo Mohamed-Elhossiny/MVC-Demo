@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Lab
 {
 	public class Program
@@ -8,6 +10,8 @@ namespace Lab
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+
+			//builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 			builder.Services.AddSession(option =>
 			{
