@@ -11,7 +11,7 @@ namespace Lab
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
-			//builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+			builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 			builder.Services.AddSession(option =>
 			{

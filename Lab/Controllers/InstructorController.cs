@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Lab.ViewModel;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lab.Controllers
 {
@@ -14,6 +15,7 @@ namespace Lab.Controllers
 			var courses = db.Courses.Where(c => c.Dept_Id == deptId).Select(c=> new {c.Id,c.Name}).ToList();
 			return Json(courses);
 		}
+		[Route("allinstructor")]
 		public IActionResult Index()
 		{
 			List<Instructor> InstList = db.Instructors.ToList();
@@ -21,6 +23,7 @@ namespace Lab.Controllers
 			InsModel.InstList = InstList;
 			return View(InsModel);
 		}
+		[Route("insdetails/{id:int}")]
 		public IActionResult Details(int id)
 		{
 			Instructor instructor = db.Instructors.SingleOrDefault(i => i.Id == id);
@@ -121,6 +124,22 @@ namespace Lab.Controllers
 			return Json(true);
 		}
 
+		public IActionResult getpartialdetails(int id)
+		{
+			var ins = db.Instructors.Include(i => i.Course).Include(i => i.Dept).Where(i => i.Id == id)
+				.Select(i => new InstDeptCourseViewModel
+				{
+					InsName = i.Name,
+					InsID = i.Id,
+					ImageSrc = i.Image,
+					InsSalary = i.Salary,
+					DeptName = i.Dept.Name,
+					CrsName = i.Course.Name
+				}).FirstOrDefault();
+				
+			return PartialView("_DetailsPartialView", ins);
+
+		}
 
 	}
 }

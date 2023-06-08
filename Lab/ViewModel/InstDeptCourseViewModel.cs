@@ -6,7 +6,7 @@ namespace Lab.ViewModel
 	{
         public int InsID { get; set; }
         public string InsName { get; set; }
-        public decimal InsSalary { get; set; }
+        public decimal? InsSalary { get; set; }
         public int DeptID { get; set; }
         public string DeptName { get; set; }
         public string CrsName { get; set; }
