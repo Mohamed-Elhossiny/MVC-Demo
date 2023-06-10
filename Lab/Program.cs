@@ -11,7 +11,7 @@ namespace Lab
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
-			builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+			//builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 			builder.Services.AddSession(option =>
 			{
@@ -32,6 +32,11 @@ namespace Lab
 			app.UseAuthorization();
 
 			app.UseSession();
+
+			//app.MapControllerRoute(
+			//	name:"Route1",
+			//	pattern: "r1/{id?:int}",
+			//	defaults: new {controller="Trainee",action= "ShowCourseDetails" });
 
 			app.MapControllerRoute(
 				name: "default",

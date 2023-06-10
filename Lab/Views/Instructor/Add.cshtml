@@ -50,13 +50,15 @@
 			var deptIdfromSelect = document.getElementById("Dept_Id").value;
 			console.log(deptIdfromSelect);
 			$.ajax({
-				url: "/Instructor/GetCourseByDept?deptId=" + deptIdfromSelect,
+				url: "/Instructor/GetCourseByDept/",
+				data: { deptId: deptIdfromSelect },
 				success: function (result) {
 					console.log(result);
 					document.getElementById("CourseID").innerHTML="";
 					for(let i of result){
 						document.getElementById("CourseID").innerHTML+=
-						"<option value='"+i.id+"'>"+i.name+"</option>"
+						`<option value=${i.id}>${i.name}</option>`
+						//"<option value='"+i.id+"'>"+i.name+"</option>"
 					}
 				}
 			})

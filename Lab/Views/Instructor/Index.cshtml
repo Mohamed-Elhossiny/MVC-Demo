@@ -31,6 +31,7 @@
 			<td>@item.Address</td>
 			<td><img src="/images/@item.Image" style="height:100px" /></td>
 			<td><a class="btn btn-warning" href="/instructor/Edit/@item.Id">Edit</a></td>
+			<td><a class="btn btn-warning" href="/instructor/Edit/@item.Id">Edit</a></td>
 			<td><a class="btn btn-primary" href="#" onclick="Getdetails(@item.Id)">View</a></td>
 		</tr>
 	}
@@ -42,7 +43,8 @@
 		function Getdetails(insId) {
 			event.preventDefault();
 			$.ajax({
-				url: "/Instructor/getpartialdetails/" + insId,
+				url: "/Instructor/getpartialdetails/",
+				data: {id:insId},
 				success: function (result) {
 					document.getElementById("details").innerHTML = result;
 				}

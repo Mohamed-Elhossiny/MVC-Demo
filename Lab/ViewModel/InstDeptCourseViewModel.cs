@@ -13,7 +13,6 @@ namespace Lab.ViewModel
         public string ImageSrc { get; set; }
         public int CrsID { get; set; }
         public List<Department> DeptList { get; set; }
-
         public List<Course> CrsList { get; set; }
         public List<Instructor> InstList { get; set; }
 
