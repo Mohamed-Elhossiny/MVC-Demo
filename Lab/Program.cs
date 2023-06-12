@@ -21,6 +21,9 @@ namespace Lab
 
 			builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 			builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+			builder.Services.AddScoped<IInstructorRepository,InstructorRepository>();
+			builder.Services.AddScoped<ITraineeRepository, TraineeRepository>();
+			builder.Services.AddScoped<ICourseResultRepository, CourseResultRepository>();
 
 			builder.Services.AddSession(option =>
 			{

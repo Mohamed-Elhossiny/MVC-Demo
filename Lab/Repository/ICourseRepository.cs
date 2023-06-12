@@ -10,6 +10,8 @@ namespace Lab.Repository
 		void Update(int c_Id, Course course);
 		void Delete(int c_Id);
 		void Save();
+		List<Course> GetCourseByDeptID(int  deptID);
+		Course GetByInstructor(Instructor instructor);
 
 	}
 }

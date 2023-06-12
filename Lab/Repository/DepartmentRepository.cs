@@ -43,5 +43,10 @@ namespace Lab.Repository
 		{
 			db.SaveChanges();
 		}
+
+		public Department GetByInst_Id(Instructor instructor)
+		{
+			return db.Departments.FirstOrDefault(d=>d.Id==instructor.Dept_Id);
+		}
 	}
 }

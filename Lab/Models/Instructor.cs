@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Lab.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -29,5 +30,5 @@ namespace Lab.Models
         public int Course_Id { get; set; }
         public virtual Course? Course { get; set; }
 
-    }
+	}
 }

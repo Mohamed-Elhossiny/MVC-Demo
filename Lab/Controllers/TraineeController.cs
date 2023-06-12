@@ -1,4 +1,5 @@
 ﻿using Lab.Models;
+using Lab.Repository;
 using Lab.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,12 +8,22 @@ namespace Lab.Controllers
 {
     public class TraineeController : Controller
     {
-        MvcContext db = new MvcContext();
+        //MvcContext db = new MvcContext();
+        ITraineeRepository traineeRepo;
+        ICourseRepository courseRepo;
+        ICourseResultRepository courseResultRepo;
+        public TraineeController
+            (ITraineeRepository _TraineeRepo,ICourseRepository _courseRepo,ICourseResultRepository _courResRepo)
+        {
+            this.traineeRepo = _TraineeRepo;
+            this.courseRepo = _courseRepo;
+            courseResultRepo = _courResRepo;
+        }
         public IActionResult ShowResult(int tid, int cid)
         {
-            Trainee trainee = db.Trainees.SingleOrDefault(t => t.Id == tid);
-            Course course = db.Courses.SingleOrDefault(c => c.Id == cid);
-            CourseResult courseResult = db.CourseResults.SingleOrDefault(cr => cr.Trainee_ID == tid && cr.Course_Id == cid);
+            Trainee trainee = traineeRepo.GetById(tid);
+            Course course = courseRepo.GetById(cid);
+            CourseResult courseResult = courseResultRepo.GetByTraineeAndCourse(tid,cid);
             TraineeCourseViewModel traineeModel = new TraineeCourseViewModel();
             traineeModel.T_Name = trainee.Name;
             traineeModel.C_Name = course.Name;
@@ -81,7 +92,7 @@ namespace Lab.Controllers
 
         public IActionResult ShowCourseDetails(int id)
         {
-            List<CourseResult> courseResults = db.CourseResults.Include(c=>c.Course).Include(c=>c.Trainee).Where(c => c.Course_Id == id).ToList();
+            List<CourseResult> courseResults = courseResultRepo.GetByCourseIdWithLazy(id);
             List<TraineeCourseViewModel> list = new List<TraineeCourseViewModel>();
             foreach (var item in courseResults)
             {
@@ -99,7 +110,7 @@ namespace Lab.Controllers
 
         public IActionResult showTraineeDetails(int id)
         {
-            List<CourseResult> courseResults = db.CourseResults.Include(c=>c.Course).Include(c=>c.Trainee).Where(c=>c.Trainee_ID == id).ToList();
+            List<CourseResult> courseResults = courseResultRepo.GetByTraineeIdWithLazy(id);
             List<TraineeCourseViewModel> list = new List<TraineeCourseViewModel>();
             foreach (var item in courseResults)
             {

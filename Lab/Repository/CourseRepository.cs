@@ -37,5 +37,15 @@ namespace Lab.Repository
         {
             db.SaveChanges();
         }
-    }
+
+		public List<Course> GetCourseByDeptID(int deptID)
+		{
+            return db.Courses.Where(c => c.Dept_Id == deptID).ToList();
+		}
+
+		public Course GetByInstructor(Instructor instructor)
+		{
+			return db.Courses.FirstOrDefault(c=>c.Id==instructor.Course_Id);
+		}
+	}
 }

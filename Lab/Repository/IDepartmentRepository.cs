@@ -6,6 +6,7 @@ namespace Lab.Repository
 	{
 		List<Department> GetAll();
 		Department GetById(int id);
+		Department GetByInst_Id(Instructor instructor);
 		void Add(Department dept);
 		void Update(int D_Id, Department dept);
 		void Delete(int D_Id);
