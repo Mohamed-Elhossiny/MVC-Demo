@@ -1,4 +1,7 @@
 using System.Text.Json.Serialization;
+using Lab.Models;
+using Lab.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lab
 {
@@ -12,6 +15,12 @@ namespace Lab
 			builder.Services.AddControllersWithViews();
 
 			//builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+			
+			builder.Services.AddDbContext<MvcContext>(options =>
+			options.UseSqlServer(builder.Configuration.GetConnectionString("Mvc")));
+
+			builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+			builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 			builder.Services.AddSession(option =>
 			{

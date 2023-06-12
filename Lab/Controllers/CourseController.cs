@@ -1,4 +1,5 @@
 ﻿using Lab.Models;
+using Lab.Repository;
 using Lab.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,17 +7,24 @@ namespace Lab.Controllers
 {
     public class CourseController : Controller
     {
-        MvcContext db = new MvcContext();
+        //MvcContext db = new MvcContext();
+        ICourseRepository courseRepository;
+        IDepartmentRepository deptRepository;
+        public CourseController(ICourseRepository _courseRepo,IDepartmentRepository _deptRepo)
+        {
+            courseRepository = _courseRepo;
+            deptRepository = _deptRepo;
+        }
         public IActionResult Index()
         {
-            List<Course> courses = db.Courses.ToList();
+            List<Course> courses = courseRepository.GetAll();
             CourseDepartmentInstrucViewModel viewModel = new CourseDepartmentInstrucViewModel();
             viewModel.C_List = courses;
             return View(viewModel);
         }
         public IActionResult Add()
         {
-            ViewData["deptList"] = db.Departments.ToList();
+            ViewData["deptList"] = deptRepository.GetAll();
             return View();
         }
         [HttpPost]
@@ -27,21 +35,23 @@ namespace Lab.Controllers
             {
                 try
                 {
-                    db.Courses.Add(course);
-                    db.SaveChanges();
+                    //db.Courses.Add(course);
+                    courseRepository.Add(course);
+                    //db.SaveChanges();
+                    courseRepository.Save();
                     return RedirectToAction("Index");
                 }catch(Exception ex)
                 {
                     ModelState.AddModelError("",ex.Message);
                 }
             }
-            ViewData["deptList"] = db.Departments.ToList();
+            ViewData["deptList"] = deptRepository.GetAll();
             return View("Add", course);
         }
         public IActionResult Edit(int id)
         {
-            Course course = db.Courses.FirstOrDefault(c => c.Id == id);
-            ViewData["deptList"] = db.Departments.ToList();
+            Course course = courseRepository.GetById(id);
+            ViewData["deptList"] = deptRepository.GetAll();
             return View(course);
         }
         [HttpPost]
@@ -50,20 +60,21 @@ namespace Lab.Controllers
             
             if(ModelState.IsValid==true)
             {
-                Course courseDB = db.Courses.FirstOrDefault(c => c.Id == id);
-                courseDB.Name = course.Name;
-                courseDB.MinDegree = course.MinDegree;
-                courseDB.Dept_Id = course.Dept_Id;
-                db.SaveChanges();
+                //Course courseDB = courseRepository.GetById(id);
+                //courseDB.Name = course.Name;
+                //courseDB.MinDegree = course.MinDegree;
+                //courseDB.Dept_Id = course.Dept_Id;
+                courseRepository.Update(id, course);
+                courseRepository.Save();
                 return RedirectToAction("index");
             }
-            ViewData["deptList"] = db.Departments.ToList();
+            ViewData["deptList"] = deptRepository.GetAll();
             return View(course);
         }
         public IActionResult Delete(int id)
         {
-            Course course = db.Courses.FirstOrDefault(c => c.Id == id);
-            ViewData["deptList"] = db.Departments.ToList();
+            Course course = courseRepository.GetById(id);
+            ViewData["deptList"] = deptRepository.GetAll();
             string confirmMsg = "Confirm Deleting Course";
             ViewData["confrim"] = confirmMsg;
             return View(course);
@@ -71,15 +82,15 @@ namespace Lab.Controllers
         [HttpPost]
         public IActionResult Delete(Course coures, int id)
         {
-            Course courseModel = db.Courses.FirstOrDefault(c => c.Id == id);
+            Course courseModel = courseRepository.GetById(id);
             //if (courseModel != null)
             if (ModelState.IsValid == true)
             {
-                db.Courses.Remove(courseModel);
-                db.SaveChanges();
+                courseRepository.Delete(id);
+                courseRepository.Save();
                 return RedirectToAction("Index");
             }
-            ViewData["deptList"] = db.Departments.ToList();
+            ViewData["deptList"] = deptRepository.GetAll();
             return View(coures);
         }
         public IActionResult Check(int minDegree,int degree)
