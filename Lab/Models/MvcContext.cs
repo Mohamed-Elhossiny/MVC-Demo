@@ -9,6 +9,7 @@ namespace Lab.Models
 		public DbSet<Department> Departments { get; set; }
 		public DbSet<Instructor> Instructors { get; set; }
 		public DbSet<Trainee> Trainees { get; set; }
+		public DbSet<Account> Accounts { get; set; }
         public MvcContext():base()
         {
             

@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Lab.Models;
 using Lab.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lab
@@ -24,6 +25,8 @@ namespace Lab
 			builder.Services.AddScoped<IInstructorRepository,InstructorRepository>();
 			builder.Services.AddScoped<ITraineeRepository, TraineeRepository>();
 			builder.Services.AddScoped<ICourseResultRepository, CourseResultRepository>();
+			builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 			builder.Services.AddSession(option =>
 			{
